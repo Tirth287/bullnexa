@@ -133,18 +133,71 @@
     </section>
 
     <section class="section contact-section" id="contact">
-      <div class="container contact-box">
-        <div>
-          <span class="section-label">Contact</span>
-          <h2>Connect with Bullnexa</h2>
-          <p>For research discussions, collaboration, or general questions, you can reach me by email.</p>
-        </div>
-        <div class="hero-actions">
-          <a class="btn primary" href="https://mail.google.com/mail/?view=cm&fs=1&to=parekhtirth29@gmail.com&su=Bullnexa%20Contact" target="_blank" rel="noopener">Email Tirth</a>
-          <a class="btn secondary" href="tel:+12036276637">+1 (203) 627-6637</a>
-        </div>
+  <div class="container contact-box">
+
+    <div class="contact-intro">
+      <span class="section-label">Contact</span>
+
+      <h2>Get in Touch</h2>
+
+      <p>
+        Have a question about BullNexa, stock research, market ideas,
+        or collaboration? Fill out the form and I'll get back to you.
+      </p>
+    </div>
+
+    <form
+      name="bullnexa-contact"
+      method="POST"
+      data-netlify="true"
+      class="contact-form"
+    >
+
+      <input
+        type="hidden"
+        name="form-name"
+        value="bullnexa-contact"
+      >
+
+      <div class="contact-form-row">
+
+        <input
+          type="text"
+          name="name"
+          placeholder="Your Name"
+          required
+        >
+
+        <input
+          type="email"
+          name="email"
+          placeholder="Your Email Address"
+          required
+        >
+
       </div>
-    </section>
+
+      <input
+        type="text"
+        name="subject"
+        placeholder="Subject"
+      >
+
+      <textarea
+        name="message"
+        rows="5"
+        placeholder="Write your message here..."
+        required
+      ></textarea>
+
+      <button type="submit" class="btn primary">
+        Send Message
+      </button>
+
+    </form>
+
+  </div>
+</section>
 
     <section class="disclaimer">
       <div class="container">
