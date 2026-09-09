@@ -14,7 +14,7 @@ window.watchlistStocks = [
     theme: "Real Estate Development",
     status: "Researching",
     view: "Tracking growth, asset quality, profitability, valuation, and long-term execution"
-  }
+  },
   {
     ticker: "GMDCLTD",
     company: "Gujarat Mineral Development Corporation Ltd",
