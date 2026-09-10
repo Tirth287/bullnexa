@@ -65,6 +65,44 @@
         </div>
       </div>
     </section>
+    <!-- Stock Search Section -->
+<section class="stock-search-section" id="stock-search">
+  <div class="container stock-search-container">
+
+    <span class="section-label">Search the Market</span>
+
+    <h2>What stock are you researching?</h2>
+
+    <p class="stock-search-description">
+      Search by company name or ticker symbol across global markets.
+    </p>
+
+    <form id="stockSearchForm" class="stock-search-box">
+
+      <input
+        type="text"
+        id="stockSearchInput"
+        placeholder="Search company or ticker, e.g. Apple or AAPL"
+        autocomplete="off"
+        required
+      >
+
+      <button type="submit" class="btn primary">
+        Search
+      </button>
+
+    </form>
+
+    <p class="stock-search-examples">
+      Try: AAPL • MSFT • BIOCON • RELIANCE • CONCOR
+    </p>
+
+    <div id="stockSearchStatus"></div>
+
+    <div id="stockSearchResults"></div>
+
+  </div>
+</section>
 
     <section class="section" id="about">
       <div class="container two-col">
@@ -218,5 +256,6 @@
 
   <script src="stocks.js"></script>
   <script src="script.js"></script>
+  <script src="stock-search.js"></script>
 </body>
 </html>
