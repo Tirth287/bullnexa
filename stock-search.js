@@ -36,29 +36,46 @@ stockSearchForm.addEventListener("submit", async function (event) {
     stockSearchStatus.textContent =
       `${data.matches.length} matching stocks found`;
 
-    stockSearchResults.innerHTML = data.matches
-      .map(stock => `
-        <div class="stock-search-result">
+stockSearchResults.innerHTML = data.matches
+  .map(stock => {
 
-          <div>
-            <div class="stock-search-symbol">
-              ${escapeHTML(stock.symbol)}
-            </div>
+    const stockUrl =
+      `stock.html?symbol=${encodeURIComponent(stock.symbol || "")}` +
+      `&name=${encodeURIComponent(stock.name || "")}` +
+      `&region=${encodeURIComponent(stock.region || "")}` +
+      `&currency=${encodeURIComponent(stock.currency || "")}` +
+      `&type=${encodeURIComponent(stock.type || "")}`;
 
-            <div class="stock-search-name">
-              ${escapeHTML(stock.name)}
-            </div>
+    return `
+      <a
+        class="stock-search-result"
+        href="${stockUrl}"
+      >
 
-            <div class="stock-search-meta">
-              ${escapeHTML(stock.region || "")}
-              ${stock.currency ? " • " + escapeHTML(stock.currency) : ""}
-              ${stock.type ? " • " + escapeHTML(stock.type) : ""}
-            </div>
+        <div>
+          <div class="stock-search-symbol">
+            ${escapeHTML(stock.symbol)}
           </div>
 
+          <div class="stock-search-name">
+            ${escapeHTML(stock.name)}
+          </div>
+
+          <div class="stock-search-meta">
+            ${escapeHTML(stock.region || "")}
+            ${stock.currency ? " • " + escapeHTML(stock.currency) : ""}
+            ${stock.type ? " • " + escapeHTML(stock.type) : ""}
+          </div>
         </div>
-      `)
-      .join("");
+
+        <div class="stock-result-arrow">
+          View Stock →
+        </div>
+
+      </a>
+    `;
+  })
+  .join("");
 
   } catch (error) {
     console.error("Stock search error:", error);
