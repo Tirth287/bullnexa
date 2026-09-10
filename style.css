@@ -519,3 +519,124 @@ footer {
     padding: 70px 0;
   }
 }
+/* =========================
+   BULLNEXA STOCK SEARCH
+========================= */
+
+.stock-search-section {
+  padding: 90px 0;
+  background: var(--panel);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.stock-search-container {
+  max-width: 900px;
+}
+
+.stock-search-container h2 {
+  margin-bottom: 14px;
+}
+
+.stock-search-description {
+  color: var(--muted);
+  font-size: 1rem;
+  margin-bottom: 26px;
+}
+
+.stock-search-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stock-search-box input {
+  flex: 1;
+  min-width: 0;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel-2);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+}
+
+.stock-search-box input::placeholder {
+  color: var(--muted);
+}
+
+.stock-search-box input:focus {
+  border-color: var(--accent);
+}
+
+.stock-search-box button {
+  border: 0;
+  cursor: pointer;
+  min-width: 120px;
+}
+
+.stock-search-examples {
+  margin-top: 14px;
+  color: #758882;
+  font-size: .82rem;
+}
+
+#stockSearchStatus {
+  margin-top: 22px;
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+#stockSearchResults {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.stock-search-result {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel-2);
+  transition: transform .2s ease, border-color .2s ease;
+}
+
+.stock-search-result:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
+
+.stock-search-symbol {
+  color: var(--accent);
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.stock-search-name {
+  margin-top: 4px;
+  color: var(--text);
+  font-size: .95rem;
+}
+
+.stock-search-meta {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: .82rem;
+}
+
+@media (max-width: 700px) {
+  .stock-search-section {
+    padding: 70px 0;
+  }
+
+  .stock-search-box {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .stock-search-box button {
+    width: 100%;
+  }
+}
