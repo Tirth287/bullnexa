@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0" />
+
+  <meta name="description"
+        content="BullNexa stock research dashboard." />
+
+  <title>Stock Research | BullNexa</title>
+
+  <link rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+  <link rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet"
+        href="style.css" />
+</head>
+
+
+<body>
+
+  <header class="site-header">
+
+    <div class="container nav-wrap">
+
+      <a class="brand"
+         href="index.html">
+        Bullnexa
+      </a>
+
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="index.html#stock-search">Search</a>
+        <a href="index.html#watchlist">Watchlist</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+
+    </div>
+
+  </header>
+
+
+  <main>
+
+    <section class="stock-detail-section">
+
+      <div class="container">
+
+        <a
+          href="index.html#stock-search"
+          class="back-link">
+          ← Back to Stock Search
+        </a>
+
+
+        <div class="stock-detail-header">
+
+          <span class="section-label">
+            BullNexa Stock Research
+          </span>
+
+          <h1 id="stockSymbol">
+            Stock
+          </h1>
+
+          <h2 id="stockName">
+            Company
+          </h2>
+
+          <p
+            id="stockMeta"
+            class="stock-detail-meta">
+          </p>
+
+        </div>
+
+
+        <div class="stock-detail-grid">
+
+          <div class="stock-detail-card">
+
+            <span>Price</span>
+
+            <h3 id="stockPrice">
+              Loading...
+            </h3>
+
+            <p id="stockChange">
+              Market data will appear here.
+            </p>
+
+          </div>
+
+
+          <div class="stock-detail-card">
+
+            <span>Business Quality</span>
+
+            <h3>Research Pending</h3>
+
+            <p>
+              Fundamental business analysis will appear here.
+            </p>
+
+          </div>
+
+
+          <div class="stock-detail-card">
+
+            <span>Valuation</span>
+
+            <h3>Research Pending</h3>
+
+            <p>
+              Valuation metrics and company context will appear here.
+            </p>
+
+          </div>
+
+
+          <div class="stock-detail-card">
+
+            <span>Risk</span>
+
+            <h3>Research Pending</h3>
+
+            <p>
+              Key business, financial, and market risks will appear here.
+            </p>
+
+          </div>
+
+
+          <div class="stock-detail-card">
+
+            <span>Technical Context</span>
+
+            <h3>Research Pending</h3>
+
+            <p>
+              Trend, momentum, support, and resistance analysis will appear here.
+            </p>
+
+          </div>
+
+
+          <div class="stock-detail-card">
+
+            <span>Volume</span>
+
+            <h3 id="stockVolume">
+              Loading...
+            </h3>
+
+            <p>
+              Latest available trading volume.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="stock-research-note">
+
+          <span class="section-label">
+            BullNexa View
+          </span>
+
+          <h2>
+            Research workspace
+          </h2>
+
+          <p>
+            This BullNexa page will combine market data,
+            fundamentals, valuation, catalysts, risks,
+            and technical context for the selected company.
+          </p>
+
+          <p class="microcopy">
+            For educational and informational purposes only.
+            Not financial advice.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <script>
+
+    const params =
+      new URLSearchParams(window.location.search);
+
+    const symbol =
+      params.get("symbol") || "Stock";
+
+    const name =
+      params.get("name") || "Company";
+
+    const region =
+      params.get("region") || "";
+
+    const currency =
+      params.get("currency") || "";
+
+    const type =
+      params.get("type") || "";
+
+
+    document.getElementById("stockSymbol")
+      .textContent = symbol;
+
+    document.getElementById("stockName")
+      .textContent = name;
+
+
+    const meta =
+      [region, currency, type]
+        .filter(Boolean)
+        .join(" • ");
+
+
+    document.getElementById("stockMeta")
+      .textContent = meta;
+
+
+    document.title =
+      `${symbol} - ${name} | BullNexa`;
+
+  </script>
+
+</body>
+
+</html>
