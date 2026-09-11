@@ -33,10 +33,49 @@ stockSearchForm.addEventListener("submit", async function (event) {
       return;
     }
 
-    stockSearchStatus.textContent =
-      `${data.matches.length} matching stocks found`;
+   const preferredMatches = data.matches
+  .filter(stock => {
+    const symbol = (stock.symbol || "").toUpperCase();
+    const region = (stock.region || "").toUpperCase();
 
-stockSearchResults.innerHTML = data.matches
+    const isIndian =
+      region.includes("INDIA") ||
+      symbol.endsWith(".NSE") ||
+      symbol.endsWith(".BSE");
+
+    if (isIndian) {
+      return symbol.endsWith(".NSE") || symbol.endsWith(".BSE");
+    }
+
+    return true;
+  })
+  .sort((a, b) => {
+    const symbolA = (a.symbol || "").toUpperCase();
+    const symbolB = (b.symbol || "").toUpperCase();
+
+    if (symbolA.endsWith(".NSE") && !symbolB.endsWith(".NSE")) {
+      return -1;
+    }
+
+    if (!symbolA.endsWith(".NSE") && symbolB.endsWith(".NSE")) {
+      return 1;
+    }
+
+    if (symbolA.endsWith(".BSE") && !symbolB.endsWith(".BSE")) {
+      return -1;
+    }
+
+    if (!symbolA.endsWith(".BSE") && symbolB.endsWith(".BSE")) {
+      return 1;
+    }
+
+    return 0;
+  });
+
+stockSearchStatus.textContent =
+  `${preferredMatches.length} matching stocks found`;
+
+stockSearchResults.innerHTML = preferredMatches
   .map(stock => {
 
     const stockUrl =
@@ -47,33 +86,39 @@ stockSearchResults.innerHTML = data.matches
       `&type=${encodeURIComponent(stock.type || "")}`;
 
     return `
-      <a
-        class="stock-search-result"
-        href="${stockUrl}"
-      >
+  <a
+    class="stock-search-result"
+    href="${stockUrl}"
+  >
 
-        <div>
-          <div class="stock-search-symbol">
-            ${escapeHTML(stock.symbol)}
-          </div>
+    <div>
+      <div class="stock-search-symbol">
+        ${escapeHTML(stock.symbol)}
+      </div>
 
-          <div class="stock-search-name">
-            ${escapeHTML(stock.name)}
-          </div>
+      <div class="stock-search-name">
+        ${escapeHTML(stock.name)}
+      </div>
 
-          <div class="stock-search-meta">
-            ${escapeHTML(stock.region || "")}
-            ${stock.currency ? " • " + escapeHTML(stock.currency) : ""}
-            ${stock.type ? " • " + escapeHTML(stock.type) : ""}
-          </div>
-        </div>
+      <div class="stock-search-meta">
+        ${
+          (stock.symbol || "").toUpperCase().endsWith(".NSE")
+            ? "India / NSE"
+            : (stock.symbol || "").toUpperCase().endsWith(".BSE")
+            ? "India / BSE"
+            : escapeHTML(stock.region || "")
+        }
+        ${stock.currency ? " • " + escapeHTML(stock.currency) : ""}
+        ${stock.type ? " • " + escapeHTML(stock.type) : ""}
+      </div>
+    </div>
 
-        <div class="stock-result-arrow">
-          View Stock →
-        </div>
+    <div class="stock-result-arrow">
+      View Stock →
+    </div>
 
-      </a>
-    `;
+  </a>
+`;
   })
   .join("");
 
