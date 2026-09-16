@@ -18,7 +18,7 @@
       <nav id="nav">
         <a href="#home">Home</a>
         <a href="#about">About</a>
-        <a href="#watchlist">Watchlist</a>
+        <a href="#market-radar">Market Radar</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
@@ -35,7 +35,7 @@
             market observations, company research, watchlists, and investment ideas with a clear focus on evidence and risk.
           </p>
           <div class="hero-actions">
-            <a class="btn primary" href="#watchlist">View Watchlist</a>
+            <a class="btn primary" href="#market-radar">View Market Radar</a>
             <a class="btn secondary" href="#about">About Bullnexa</a>
           </div>
           <p class="microcopy">For educational and informational purposes only. Not financial advice.</p>
@@ -131,32 +131,78 @@
       </div>
     </section>
 
-    <section class="section" id="watchlist">
-      <div class="container">
-        <span class="section-label">Watchlist</span>
-        <div class="section-head">
-          <h2>Stocks under research</h2>
-          <p>Companies and themes I am studying. Inclusion here means research interest only, not a buy or sell recommendation.</p>
-        </div>
+    <!-- Bullnexa Market Radar -->
+<section class="section" id="market-radar">
+  <div class="container">
 
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Ticker</th>
-                <th>Company</th>
-                <th>Theme</th>
-                <th>Status</th>
-                <th>Research View</th>
-              </tr>
-            </thead>
-            <tbody id="watchlistBody">
-              <!-- Stocks are loaded from script.js -->
-            </tbody>
-          </table>
-        </div>
+    <span class="section-label">Market Radar</span>
+
+    <div class="section-head">
+      <div>
+        <h2>Bullnexa Market Radar</h2>
+        <p>
+          Discover stocks showing notable price movement and trading activity.
+          Market data updates automatically.
+        </p>
       </div>
-    </section>
+
+      <div class="radar-update">
+        <span class="radar-live-dot"></span>
+        <span id="radarUpdated">Loading market data...</span>
+      </div>
+    </div>
+
+    <div class="radar-tabs">
+      <button class="radar-tab active" data-radar="movers">
+        Top Movers
+      </button>
+
+      <button class="radar-tab" data-radar="volume">
+        Unusual Volume
+      </button>
+
+      <button class="radar-tab" data-radar="highs">
+        Near Highs
+      </button>
+
+      <button class="radar-tab" data-radar="activity">
+        Market Activity
+      </button>
+    </div>
+
+    <div class="table-wrap radar-table-wrap">
+      <table class="radar-table">
+        <thead>
+          <tr>
+            <th>Stock</th>
+            <th>Price</th>
+            <th>Today</th>
+            <th>Volume</th>
+            <th>Market Signal</th>
+          </tr>
+        </thead>
+
+        <tbody id="marketRadarBody">
+
+          <tr class="radar-loading-row">
+            <td colspan="5">
+              Loading Bullnexa Market Radar...
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+    <div class="radar-footer">
+      <p>
+        Market Radar identifies trading activity for further research.
+        It does not represent a buy or sell recommendation.
+      </p>
+    </div>
+
+  </div>
+</section>
 
     <section class="section alt">
       <div class="container">
