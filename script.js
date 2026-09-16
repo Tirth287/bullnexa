@@ -1,22 +1,31 @@
-function renderWatchlist() {
-  const body = document.getElementById("watchlistBody");
+function initializeMarketRadar() {
+  const body = document.getElementById("marketRadarBody");
   if (!body) return;
 
-  const stocks = window.watchlistStocks || [];
-
-  body.innerHTML = stocks.map(stock => `
-    <tr>
-      <td>${stock.ticker}</td>
-      <td>${stock.company}</td>
-      <td>${stock.theme}</td>
-      <td><span class="pill">${stock.status}</span></td>
-      <td>${stock.view}</td>
+  body.innerHTML = `
+    <tr class="radar-loading-row">
+      <td colspan="5">
+        Market data connection is being configured...
+      </td>
     </tr>
-  `).join("");
+  `;
+
+  const radarTabs = document.querySelectorAll(".radar-tab");
+
+  radarTabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+
+      radarTabs.forEach(item => {
+        item.classList.remove("active");
+      });
+
+      tab.classList.add("active");
+    });
+  });
 }
 
 document.getElementById('year').textContent = new Date().getFullYear();
-renderWatchlist();
+initializeMarketRadar();
 
 const menuBtn = document.getElementById('menuBtn');
 const nav = document.getElementById('nav');
