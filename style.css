@@ -640,3 +640,133 @@ footer {
     width: 100%;
   }
 }
+/* =========================
+   BULLNEXA MARKET RADAR
+========================= */
+
+#market-radar {
+  background: var(--bg);
+}
+
+.radar-update {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: .82rem;
+  white-space: nowrap;
+}
+
+.radar-live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(114, 240, 181, .65);
+}
+
+.radar-tabs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.radar-tab {
+  padding: 10px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255,255,255,.03);
+  color: var(--muted);
+  font-family: inherit;
+  font-size: .85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .2s ease;
+}
+
+.radar-tab:hover {
+  color: var(--text);
+  border-color: rgba(114,240,181,.35);
+}
+
+.radar-tab.active {
+  background: rgba(114,240,181,.12);
+  border-color: rgba(114,240,181,.45);
+  color: var(--accent);
+}
+
+.radar-table-wrap {
+  background: var(--panel);
+}
+
+.radar-table {
+  min-width: 760px;
+}
+
+.radar-table td:first-child {
+  font-weight: 700;
+}
+
+.radar-loading-row td {
+  text-align: center;
+  padding: 36px 18px;
+  color: var(--muted);
+}
+
+.radar-price {
+  font-weight: 600;
+}
+
+.radar-change {
+  font-weight: 700;
+}
+
+.radar-change.positive {
+  color: var(--accent);
+}
+
+.radar-change.negative {
+  color: #ff7d7d;
+}
+
+.radar-signal {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(114,240,181,.10);
+  color: var(--accent);
+  font-size: .78rem;
+  font-weight: 700;
+}
+
+.radar-footer {
+  margin-top: 16px;
+}
+
+.radar-footer p {
+  margin: 0;
+  color: #758882;
+  font-size: .8rem;
+}
+
+@media (max-width: 700px) {
+  .radar-update {
+    margin-top: 8px;
+  }
+
+  .radar-tabs {
+    gap: 8px;
+  }
+
+  .radar-tab {
+    padding: 9px 13px;
+    font-size: .78rem;
+  }
+
+  .radar-table th,
+  .radar-table td {
+    padding: 14px;
+  }
+}
