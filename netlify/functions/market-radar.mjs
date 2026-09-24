@@ -8,21 +8,11 @@ export default async () => {
     );
   }
 
-  const stocks = [
-    {
-      symbol: "BIOCON.NS",
-      ticker: "BIOCON",
-      name: "Biocon Ltd"
-    },
+    const stocks = [
     {
       symbol: "ANANTRAJ.NS",
       ticker: "ANANTRAJ",
       name: "Anant Raj Ltd"
-    },
-    {
-      symbol: "VIKRAMSOLR.NS",
-      ticker: "VIKRAMSOLR",
-      name: "Vikram Solar Ltd"
     },
     {
       symbol: "EXIDEIND.NS",
