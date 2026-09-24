@@ -38,57 +38,173 @@ async function initializeMarketRadar() {
       return;
     }
 
-    body.innerHTML = stocks.map(stock => {
-      const isPositive =
-        Number(stock.changePercent) >= 0;
+    function renderStocks(
+      stockList,
+      emptyMessage = "No stocks match this filter."
+    ) {
+      if (stockList.length === 0) {
+        body.innerHTML = `
+          <tr class="radar-loading-row">
+            <td colspan="5">
+              ${emptyMessage}
+            </td>
+          </tr>
+        `;
+        return;
+      }
 
-      const changeClass =
-        isPositive ? "positive" : "negative";
+      body.innerHTML = stockList.map(stock => {
+        const changePercent =
+          Number(stock.changePercent || 0);
 
-      const sign =
-        isPositive ? "+" : "";
+        const isPositive =
+          changePercent >= 0;
 
-      const volumeRatio =
-        Number(stock.volumeRatio || 0);
+        const changeClass =
+          isPositive ? "positive" : "negative";
 
-      const volumeDisplay =
-        volumeRatio > 0
-          ? `${volumeRatio.toFixed(2)}× Avg`
-          : Number(stock.volume || 0).toLocaleString();
+        const sign =
+          isPositive ? "+" : "";
 
-      return `
-        <tr>
-          <td>
-            <strong>${stock.symbol}</strong>
-            <br>
-            <span style="
-              color: var(--muted);
-              font-size: .8rem;
-            ">
-              ${stock.name}
-            </span>
-          </td>
+        const volumeRatio =
+          Number(stock.volumeRatio || 0);
 
-          <td class="radar-price">
-            ₹${Number(stock.price).toFixed(2)}
-          </td>
+        const volumeDisplay =
+          volumeRatio > 0
+            ? `${volumeRatio.toFixed(2)}× Avg`
+            : Number(
+                stock.volume || 0
+              ).toLocaleString();
 
-          <td class="radar-change ${changeClass}">
-            ${sign}${Number(stock.changePercent).toFixed(2)}%
-          </td>
+        return `
+          <tr>
+            <td>
+              <strong>${stock.symbol}</strong>
+              <br>
+              <span style="
+                color: var(--muted);
+                font-size: .8rem;
+              ">
+                ${stock.name}
+              </span>
+            </td>
 
-          <td>
-            ${volumeDisplay}
-          </td>
+            <td class="radar-price">
+              ₹${Number(stock.price).toFixed(2)}
+            </td>
 
-          <td>
-            <span class="radar-signal">
-              ${stock.signal}
-            </span>
-          </td>
-        </tr>
-      `;
-    }).join("");
+            <td class="radar-change ${changeClass}">
+              ${sign}${changePercent.toFixed(2)}%
+            </td>
+
+            <td>
+              ${volumeDisplay}
+            </td>
+
+            <td>
+              <span class="radar-signal">
+                ${stock.signal}
+              </span>
+            </td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function showTopMovers() {
+      const sorted = [...stocks].sort(
+        (a, b) =>
+          Math.abs(Number(b.changePercent || 0)) -
+          Math.abs(Number(a.changePercent || 0))
+      );
+
+      renderStocks(sorted);
+    }
+
+    function showUnusualVolume() {
+      const filtered = [...stocks]
+        .filter(
+          stock =>
+            Number(stock.volumeRatio || 0) >= 1.5
+        )
+        .sort(
+          (a, b) =>
+            Number(b.volumeRatio || 0) -
+            Number(a.volumeRatio || 0)
+        );
+
+      renderStocks(
+        filtered,
+        "No unusual volume stocks right now."
+      );
+    }
+
+    function showNearHighs() {
+      const filtered = [...stocks]
+        .filter(stock => {
+          const distance =
+            Number(stock.distanceFromHigh);
+
+          return (
+            Number.isFinite(distance) &&
+            distance <= 5
+          );
+        })
+        .sort(
+          (a, b) =>
+            Number(a.distanceFromHigh) -
+            Number(b.distanceFromHigh)
+        );
+
+      renderStocks(
+        filtered,
+        "52-week high data is being configured."
+      );
+    }
+
+    function showMarketActivity() {
+      const sorted = [...stocks].sort(
+        (a, b) =>
+          Number(b.volumeRatio || 0) -
+          Number(a.volumeRatio || 0)
+      );
+
+      renderStocks(sorted);
+    }
+
+    const radarTabs =
+      document.querySelectorAll(".radar-tab");
+
+    radarTabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        radarTabs.forEach(item =>
+          item.classList.remove("active")
+        );
+
+        tab.classList.add("active");
+
+        const tabName =
+          tab.textContent.trim().toLowerCase();
+
+        if (tabName === "top movers") {
+          showTopMovers();
+        } else if (
+          tabName === "unusual volume"
+        ) {
+          showUnusualVolume();
+        } else if (
+          tabName === "near highs"
+        ) {
+          showNearHighs();
+        } else if (
+          tabName === "market activity"
+        ) {
+          showMarketActivity();
+        }
+      });
+    });
+
+    showTopMovers();
 
     if (updated) {
       updated.textContent =
@@ -114,19 +230,6 @@ async function initializeMarketRadar() {
         "Unable to update market data";
     }
   }
-
-  const radarTabs =
-    document.querySelectorAll(".radar-tab");
-
-  radarTabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-      radarTabs.forEach(item =>
-        item.classList.remove("active")
-      );
-
-      tab.classList.add("active");
-    });
-  });
 }
 
 document.getElementById('year').textContent = new Date().getFullYear();
