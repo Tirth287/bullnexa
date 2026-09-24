@@ -8,7 +8,7 @@ export default async () => {
     );
   }
 
-        const stocks = [
+  const stocks = [
     {
       symbol: "BIOCON.NS",
       ticker: "BIOCON",
@@ -41,38 +41,54 @@ export default async () => {
     }
   ];
 
+  const cacheHeaders = {
+    "Cache-Control": "public, max-age=300",
+    "Netlify-CDN-Cache-Control":
+      "public, durable, s-maxage=172800, stale-while-revalidate=21600"
+  };
+
   try {
-    const apiSymbols = stocks
-      .map(stock => stock.symbol)
-      .join(",");
+    const todayDate = new Date();
 
-    const url =
-      `https://api.marketstack.com/v2/eod` +
-      `?access_key=${encodeURIComponent(apiKey)}` +
-      `&symbols=${encodeURIComponent(apiSymbols)}` +
-      `&limit=${stocks.length * 21}`;
+    const oneYearAgo = new Date(todayDate);
+    oneYearAgo.setFullYear(
+      oneYearAgo.getFullYear() - 1
+    );
 
-    const response = await fetch(url);
-    const data = await response.json();
+    const dateFrom = oneYearAgo
+      .toISOString()
+      .split("T")[0];
 
-    if (
-      !response.ok ||
-      data.error ||
-      !Array.isArray(data.data)
-    ) {
-      return Response.json(
-        {
-          error:
-            data.error?.message ||
-            "Market data unavailable.",
-          raw: data
-        },
-        { status: 500 }
-      );
-    }
+    const dateTo = todayDate
+      .toISOString()
+      .split("T")[0];
 
-    const results = stocks
-      .map(stock => {
+    async function loadStock(stock) {
+      try {
+        const url =
+          `https://api.marketstack.com/v2/eod` +
+          `?access_key=${encodeURIComponent(apiKey)}` +
+          `&symbols=${encodeURIComponent(stock.symbol)}` +
+          `&date_from=${dateFrom}` +
+          `&date_to=${dateTo}` +
+          `&limit=1000`;
+
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (
+          !response.ok ||
+          data.error ||
+          !Array.isArray(data.data)
+        ) {
+          console.error(
+            `Marketstack error for ${stock.ticker}:`,
+            data.error || data
+          );
+
+          return null;
+        }
+
         const values = data.data
           .filter(item => {
             const itemSymbol =
@@ -88,7 +104,9 @@ export default async () => {
             return (
               itemSymbol === apiSymbol ||
               itemSymbol === ticker ||
-              itemSymbol.startsWith(`${ticker}.`)
+              itemSymbol.startsWith(
+                `${ticker}.`
+              )
             );
           })
           .sort(
@@ -101,6 +119,7 @@ export default async () => {
           console.log(
             `Not enough data for ${stock.ticker}`
           );
+
           return null;
         }
 
@@ -108,10 +127,10 @@ export default async () => {
         const previous = values[1];
 
         const price =
-          Number(latest.close);
+          Number(latest.close || 0);
 
         const previousClose =
-          Number(previous.close);
+          Number(previous.close || 0);
 
         const volume =
           Number(latest.volume || 0);
@@ -145,15 +164,39 @@ export default async () => {
             ? volume / averageVolume
             : 0;
 
+        const highValues = values
+          .map(item =>
+            Number(item.high || 0)
+          )
+          .filter(value => value > 0);
+
+        const fiftyTwoWeekHigh =
+          highValues.length > 0
+            ? Math.max(...highValues)
+            : null;
+
+        const distanceFromHigh =
+          fiftyTwoWeekHigh &&
+          fiftyTwoWeekHigh > 0
+            ? (
+                (fiftyTwoWeekHigh - price) /
+                fiftyTwoWeekHigh
+              ) * 100
+            : null;
+
         let signal = "Normal Activity";
 
         if (volumeRatio >= 2) {
           signal = "Unusual Volume";
         } else if (changePercent >= 3) {
           signal = "Strong Move";
-        } else if (changePercent <= -3) {
+        } else if (
+          changePercent <= -3
+        ) {
           signal = "Sharp Move";
-        } else if (volumeRatio >= 1.5) {
+        } else if (
+          volumeRatio >= 1.5
+        ) {
           signal = "High Activity";
         }
 
@@ -166,11 +209,31 @@ export default async () => {
           volume,
           averageVolume,
           volumeRatio,
+          fiftyTwoWeekHigh,
+          distanceFromHigh,
           signal,
           date: latest.date
         };
-      })
-      .filter(Boolean);
+
+      } catch (stockError) {
+        console.error(
+          `Error loading ${stock.ticker}:`,
+          stockError
+        );
+
+        return null;
+      }
+    }
+
+    const stockResults =
+      await Promise.all(
+        stocks.map(stock =>
+          loadStock(stock)
+        )
+      );
+
+    const results =
+      stockResults.filter(Boolean);
 
     if (results.length === 0) {
       return Response.json(
@@ -182,11 +245,18 @@ export default async () => {
       );
     }
 
-    return Response.json({
-      updatedAt: new Date().toISOString(),
-      market: "NSE",
-      stocks: results
-    });
+    return Response.json(
+      {
+        updatedAt:
+          new Date().toISOString(),
+        market: "NSE",
+        stocks: results
+      },
+      {
+        headers: cacheHeaders
+      }
+    );
+
   } catch (error) {
     console.error(
       "Bullnexa Market Radar error:",
