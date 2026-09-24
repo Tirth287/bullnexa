@@ -143,12 +143,14 @@ async function initializeMarketRadar() {
       const filtered = [...stocks]
         .filter(stock => {
           const distance =
-            Number(stock.distanceFromHigh);
+  Number(stock.distanceFromHigh);
 
-          return (
-            Number.isFinite(distance) &&
-            distance <= 5
-          );
+return (
+  stock.distanceFromHigh != null &&
+  Number.isFinite(distance) &&
+  distance >= 0 &&
+  distance <= 5
+);
         })
         .sort(
           (a, b) =>
@@ -158,7 +160,7 @@ async function initializeMarketRadar() {
 
       renderStocks(
         filtered,
-        "52-week high data is being configured."
+        "No stocks are currently within 5% of their 52-week high."
       );
     }
 
@@ -206,9 +208,21 @@ async function initializeMarketRadar() {
 
     showTopMovers();
 
-    if (updated) {
+            if (updated) {
+      const marketDate = stocks[0]?.date
+        ? new Date(stocks[0].date).toLocaleDateString(
+            "en-US",
+            {
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+              timeZone: "UTC"
+            }
+          )
+        : "Latest available";
+
       updated.textContent =
-        "Market data updated automatically";
+        `Market data as of ${marketDate}`;
     }
 
   } catch (error) {
