@@ -1,0 +1,20 @@
+BULLNEXA: GITHUB + NETLIFY UPDATE
+
+1. Keep your original bullnexa-main.zip as a backup.
+2. Extract this updated ZIP. Open the bullnexa-main folder.
+3. In GitHub, open Tirth287/bullnexa. Click main, enter launch-redesign, and create that branch.
+4. Click Add file > Upload files. Drag the CONTENTS of the extracted folder, not the outer folder, into GitHub. Include netlify/ and every file. Commit changes to launch-redesign.
+5. Open a pull request from launch-redesign to main. If Netlify Deploy Previews are enabled, use the preview link in the checks. Otherwise enable Deploy Previews in Netlify before reviewing. Do not merge until satisfied.
+6. On the preview, test phone and desktop layouts, menu, watchlist search, sector filter, zero results, all radar filters, and contact form.
+7. In Netlify, verify form detection is enabled. Submit a test message using the deployed preview/production form and confirm it appears under Forms > bullnexa-contact. Configure form email notifications if needed. The thank-you page alone does not prove receipt.
+8. Existing market-radar Netlify functions and package dependencies are retained. Keep the existing environment variables. The static preview cannot verify the production API, scheduled function, credentials, or Blobs store. Confirm the four-stock snapshot updates successfully in Netlify and check function logs.
+9. Review privacy/terms text against your actual practices. Set and document a contact-data retention period. Publish genuine dated research before promoting the site as a report library. No paid tips, advisory service, newsletter subscription, or portfolio management has been enabled.
+10. When reviewed, merge the pull request into main. Confirm Netlify deploys main to bullnexainsights.com, then repeat the live checks.
+11. To undo, revert the merge commit in GitHub and let Netlify redeploy, or restore your previous published deploy in Netlify.
+
+CHANGES
+New responsive navy/green homepage; working API-independent company/sector watchlist search; original 12 watchlist companies retained; clear unpublished-report labels; market radar preserved with signal explanations; accessible navigation and form labels; privacy/terms/thank-you pages; favicon, social metadata, sitemap and robots file.
+
+Old stock.html, stocks.js, stock-search.js, and quote/search server functions remain in the backup package for compatibility but are not linked from the redesigned homepage. No fabricated research, performance, prices, or testimonials were added.
+
+Contact submissions require Netlify hosting. Opening index.html directly is not a complete production test.

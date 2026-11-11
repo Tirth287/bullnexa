@@ -9,43 +9,43 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
-</head>
+<link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="canonical" href="https://bullnexainsights.com/"><meta property="og:title" content="Bullnexa | Independent Stock Research"><meta property="og:description" content="Explore company watchlists, market activity, and a disciplined research approach."><meta property="og:type" content="website"><meta property="og:url" content="https://bullnexainsights.com/"></head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="container nav-wrap">
-      <a class="brand" href="#home">Bullnexa</a>
-      <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+      <a class="brand" href="#home" aria-label="Bullnexa home"><img src="favicon.svg" class="brand-icon" alt="" width="34" height="34"> bullnexa<span class="brand-dot">.</span></a>
+      <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation" aria-controls="nav" aria-expanded="false">☰</button>
       <nav id="nav">
         <a href="#home">Home</a>
-        <a href="#about">About</a>
+        <a href="#about">Our Approach</a>
        <a href="#market-radar">Market Radar</a>
       <a href="#research">Research</a>
-      <a href="#contact">Contact</a>
+      <a href="#contact" class="nav-contact">Get in Touch →</a>
       </nav>
     </div>
   </header>
 
-  <main>
+  <main id="main">
     <section class="hero" id="home">
       <div class="container hero-grid">
         <div>
-          <span class="eyebrow">Tirth Parekh • Independent Stock Research</span>
-          <h1>Research stocks with clarity, not noise.</h1>
+          <span class="eyebrow">Independent thinking. Indian equities.</span>
+          <h1>A clearer view.<br><em>A stronger thesis.</em></h1>
           <p class="hero-copy">
-            I’m Tirth Parekh, and Bullnexa is my independent stock research platform. I use it to share
-            market observations, company research, watchlists, and investment ideas with a clear focus on evidence and risk.
+            Explore businesses, follow market activity, and ask better investment questions. Independent research starts with understanding both the opportunity and the risk.
           </p>
           <div class="hero-actions">
-            <a class="btn primary" href="#market-radar">View Market Radar</a>
-            <a class="btn secondary" href="#about">About Bullnexa</a>
+            <a class="btn primary" href="#research">Explore the Watchlist →</a>
+            <a class="btn secondary" href="#market-radar">View Market Radar →</a>
           </div>
           <p class="microcopy">For educational and informational purposes only. Not financial advice.</p>
         </div>
 
         <div class="market-card">
           <div class="card-top">
-            <span>Research Framework</span>
-            <span class="status">DISCIPLINED</span>
+            <span>THE BULLNEXA LENS</span>
+            <span class="status">RESEARCH FIRST</span>
           </div>
           <div class="metric">
             <strong>01</strong>
@@ -66,70 +66,8 @@
         </div>
       </div>
     </section>
-    <!-- Stock Search Section -->
-<section class="stock-search-section" id="stock-search">
-  <div class="container stock-search-container">
+    <div class="focus-strip"><div class="container"><span>UNDERSTAND THE BUSINESS</span><span>EXAMINE THE NUMBERS</span><span>QUESTION THE THESIS</span><span>KEEP RISK VISIBLE</span></div></div>
 
-    <span class="section-label">Search the Market</span>
-
-    <h2>What stock are you researching?</h2>
-
-    <p class="stock-search-description">
-      Search by company name or ticker symbol across global markets.
-    </p>
-
-    <form id="stockSearchForm" class="stock-search-box">
-
-      <input
-        type="text"
-        id="stockSearchInput"
-        placeholder="Search company or ticker, e.g. Apple or AAPL"
-        autocomplete="off"
-        required
-      >
-
-      <button type="submit" class="btn primary">
-        Search
-      </button>
-
-    </form>
-
-    <p class="stock-search-examples">
-      Try: AAPL • MSFT • BIOCON • RELIANCE • CONCOR
-    </p>
-
-    <div id="stockSearchStatus"></div>
-
-    <div id="stockSearchResults"></div>
-
-  </div>
-</section>
-
-    <section class="section" id="about">
-      <div class="container two-col">
-        <div>
-          <span class="section-label">About</span>
-          <h2>Turning market noise into structured research.</h2>
-        </div>
-        <div>
-          <p>
-            I’m Tirth Parekh, and I created Bullnexa to turn market ideas into structured, evidence-based research. 
-            My background in Business Analytics and systems analysis shapes how I look at companies: 
-            understand the business, identify the key drivers, test the thesis, and make the risks visible.
-          </p>
-          <p>
-            My research combines business fundamentals, earnings trends, valuation, industry dynamics, catalysts, 
-            and price context. I’m especially interested in financials, infrastructure, energy transition, industrials, 
-            healthcare, and emerging growth opportunities across Indian and global equity markets.
-          </p>
-          <p>
-            Bullnexa is not about predicting every market move or chasing stock tips. Each research idea should 
-            have a clear thesis, supporting evidence, key risks, and specific conditions that could change the view. 
-            The goal is simple: make better-informed investment research decisions through a disciplined process.
-          </p>
-        </div>
-      </div>
-    </section>
 
     <!-- Bullnexa Market Radar -->
 <section class="section" id="market-radar">
@@ -141,13 +79,12 @@
       <div>
         <h2>Bullnexa Market Radar</h2>
         <p>
-          Discover stocks showing notable price movement and trading activity.
-          Market data updates automatically.
+          A focused view of four tracked companies. Explore price movement and trading activity using the latest available snapshot.
         </p>
       </div>
 
       <div class="radar-update">
-        <span class="radar-live-dot"></span>
+        
         <span id="radarUpdated">Loading market data...</span>
       </div>
     </div>
@@ -176,7 +113,7 @@
           <tr>
             <th>Stock</th>
             <th>Price</th>
-            <th>Today</th>
+            <th>Session change</th>
             <th>Volume</th>
             <th>Market Signal</th>
           </tr>
@@ -194,130 +131,41 @@
       </table>
     </div>
 
-    <div class="radar-footer">
+    <details class="signal-help"><summary>How to read the signals</summary><p>Top Movers ranks absolute session change. Unusual Volume shows volume at least 1.5 times the feed’s average. Near Highs shows stocks within 5% of their 52-week high, when that value is available. Market Activity ranks relative volume. These filters cover only the tracked companies.</p></details><div class="radar-footer">
       <p>
-        Market Radar identifies trading activity for further research.
+        Coverage: Anant Raj, Exide Industries, GMDC, and NTPC Green Energy. Snapshot data may be delayed. Market Radar identifies trading activity for further research.
         It does not represent a buy or sell recommendation.
       </p>
     </div>
 
   </div>
 </section>
-<!-- Bullnexa Research Watchlist -->
-<section class="section alt" id="research">
-  <div class="container">
-
-    <span class="section-label">Research</span>
-
-    <div class="section-head">
-      <div>
-        <h2>Bullnexa Research Watchlist</h2>
-        <p>
-          Selected companies being tracked for deeper fundamental,
-          industry, valuation, catalyst, and risk research.
-        </p>
+<section class="section alt" id="research"><div class="container"><span class="section-label">THE RESEARCH DESK</span><div class="section-head"><div><h2>Good research starts<br>with better questions.</h2><p>Explore our company watchlist. Full research reports have not been published yet.</p></div><span class="outline-badge">WATCHLIST • INDIA</span></div><div class="research-tools"><div><label for="researchSearch">Find a tracked company</label><input id="researchSearch" type="search" placeholder="Search company or sector…"></div><div><label for="sectorFilter">Filter by theme</label><select id="sectorFilter"><option value="">All themes</option></select></div></div><p id="researchCount" role="status" aria-live="polite"></p><div class="research-grid" id="researchCards"></div><noscript><p>Enable JavaScript to filter the watchlist. Companies tracked include Biocon, CESC, NMDC, and Ashok Leyland. No full reports are currently published.</p></noscript><p class="microcopy">Watchlist inclusion is a research interest, not a buy or sell recommendation.</p></div></section>
+    <section class="section" id="about">
+      <div class="container two-col">
+        <div>
+          <span class="section-label">About</span>
+          <h2>Independent by design.<br>Disciplined by process.</h2>
+        </div>
+        <div>
+          <p>
+            I’m Tirth Parekh, and I created Bullnexa to turn market ideas into structured, evidence-based research. 
+            My background in Business Analytics and systems analysis shapes how I look at companies: 
+            understand the business, identify the key drivers, test the thesis, and make the risks visible.
+          </p>
+          <p>
+            My research combines business fundamentals, earnings trends, valuation, industry dynamics, catalysts, 
+            and price context. I’m especially interested in financials, infrastructure, energy transition, industrials, 
+            healthcare, and emerging growth opportunities across Indian and global equity markets.
+          </p>
+          <p>
+            Bullnexa is not about predicting every market move or chasing stock tips. Each research idea should 
+            have a clear thesis, supporting evidence, key risks, and specific conditions that could change the view. 
+            The goal is simple: make better-informed investment research decisions through a disciplined process.
+          </p>
+        </div>
       </div>
-    </div>
-
-    <div class="table-wrap radar-table-wrap">
-      <table class="radar-table">
-
-        <thead>
-          <tr>
-            <th>Company</th>
-            <th>Sector / Theme</th>
-            <th>Research Status</th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          <tr>
-            <td><strong>Bliss GVS Pharma Ltd</strong></td>
-            <td>Pharmaceuticals</td>
-            <td><span class="radar-signal">Tracking</span></td>
-          </tr>
-
-          <tr>
-            <td><strong>Hindustan Copper Ltd</strong></td>
-            <td>Copper / Metals</td>
-            <td><span class="radar-signal">Tracking</span></td>
-          </tr>
-
-          <tr>
-            <td><strong>Biocon Ltd</strong></td>
-            <td>Biopharma / Healthcare</td>
-            <td><span class="radar-signal">Tracking</span></td>
-          </tr>
-
-          <tr>
-            <td><strong>Indosolar Ltd</strong></td>
-            <td>Solar / Renewable Energy</td>
-            <td><span class="radar-signal">Tracking</span></td>
-          </tr>
-
-          <tr>
-            <td><strong>Morepen Laboratories Ltd</strong></td>
-            <td>Pharmaceuticals / Healthcare</td>
-            <td><span class="radar-signal">Tracking</span></td>
-          </tr>
-
-          <tr>
-            <td><strong>CESC Ltd</strong></td>
-            <td>Power / Utilities</td>
-            <td><span class="radar-signal">Tracking</span></td>
-          </tr>
-
-          <tr>
-            <td><strong>NMDC Ltd</strong></td>
-            <td>Mining / Iron Ore</td>
-            <td><span class="radar-signal">Tracking</span></td>
-          </tr>
-
-          <tr>
-            <td><strong>Ashok Leyland Ltd</strong></td>
-            <td>Automobile / Commercial Vehicles</td>
-            <td><span class="radar-signal">Tracking</span></td>
-          </tr>
-
-          <tr>
-            <td><strong>Apollo Micro Systems Ltd</strong></td>
-            <td>Defence / Electronics</td>
-            <td><span class="radar-signal">Tracking</span></td>
-          </tr>
-
-          <tr>
-            <td><strong>Finolex Industries Ltd</strong></td>
-            <td>PVC / Chemicals / Infrastructure</td>
-            <td><span class="radar-signal">Tracking</span></td>
-          </tr>
-
-          <tr>
-            <td><strong>Bhagyanagar India Ltd</strong></td>
-            <td>Copper / Industrial Products</td>
-            <td><span class="radar-signal">Tracking</span></td>
-          </tr>
-
-          <tr>
-            <td><strong>Himadri Speciality Chemical Ltd</strong></td>
-            <td>Speciality Chemicals / Battery Materials</td>
-            <td><span class="radar-signal">Tracking</span></td>
-          </tr>
-
-        </tbody>
-
-      </table>
-    </div>
-
-    <div class="radar-footer">
-      <p>
-        Companies shown here are part of the Bullnexa research watchlist.
-        Inclusion does not represent a buy or sell recommendation.
-      </p>
-    </div>
-
-  </div>
-</section>
+    </section>
     <section class="section">
       <div class="container">
         <span class="section-label">Principles</span>
@@ -339,8 +187,7 @@
       <h2>Get in Touch</h2>
 
       <p>
-        Have a question about BullNexa, stock research, market ideas,
-        or collaboration? Fill out the form and I'll get back to you.
+        Have a research question, feedback, or a collaboration in mind? Send a message to Tirth Parekh.
       </p>
     </div>
 
@@ -348,7 +195,7 @@
       name="bullnexa-contact"
       method="POST"
       data-netlify="true"
-      class="contact-form"
+      action="/thank-you.html" netlify-honeypot="bot-field" class="contact-form"
     >
 
       <input
@@ -357,19 +204,19 @@
         value="bullnexa-contact"
       >
 
-      <div class="contact-form-row">
+      <p class="honeypot"><label>Leave this empty<input name="bot-field"></label></p><div class="contact-form-row">
 
         <input
           type="text"
           name="name"
-          placeholder="Your Name"
+          aria-label="Your name" placeholder="Your Name"
           required
         >
 
         <input
           type="email"
           name="email"
-          placeholder="Your Email Address"
+          aria-label="Your email address" placeholder="Your Email Address"
           required
         >
 
@@ -378,17 +225,17 @@
       <input
         type="text"
         name="subject"
-        placeholder="Subject"
+        aria-label="Subject" placeholder="Subject"
       >
 
       <textarea
         name="message"
         rows="5"
-        placeholder="Write your message here..."
+        aria-label="Your message" placeholder="Write your message here..."
         required
       ></textarea>
 
-      <button type="submit" class="btn primary">
+      <p class="microcopy">Your details are used to respond to your inquiry. Read our <a href="privacy.html">privacy notice</a>.</p><button type="submit" class="btn primary">
         Send Message
       </button>
 
@@ -410,12 +257,12 @@
   <footer>
     <div class="container footer-wrap">
       <span>© <span id="year"></span> Bullnexa by Tirth Parekh. All rights reserved.</span>
-      <span>Research • Education • Market Insights</span>
+      <span><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms & disclosures</a></span>
     </div>
   </footer>
 
-  <script src="stocks.js"></script>
+  <script src="research-data.js"></script>
   <script src="script.js"></script>
-  <script src="stock-search.js"></script>
+  <script src="research.js"></script>
 </body>
 </html>
