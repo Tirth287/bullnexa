@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://bullnexainsights.com/sitemap.xml

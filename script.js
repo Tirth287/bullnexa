@@ -1,3 +1,4 @@
+function safeText(value) { return String(value ?? '').replace(/[&<>\"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c])); }
 async function initializeMarketRadar() {
   const body = document.getElementById("marketRadarBody");
   const updated = document.getElementById("radarUpdated");
@@ -13,9 +14,7 @@ async function initializeMarketRadar() {
   `;
 
   try {
-    const response = await fetch(
-      "/.netlify/functions/market-radar"
-    );
+    const response = await fetch("/.netlify/functions/market-radar", { signal: AbortSignal.timeout(15000) });
 
     const data = await response.json();
 
@@ -79,13 +78,13 @@ async function initializeMarketRadar() {
         return `
           <tr>
             <td>
-              <strong>${stock.symbol}</strong>
+              <strong>${safeText(stock.symbol)}</strong>
               <br>
               <span style="
                 color: var(--muted);
                 font-size: .8rem;
               ">
-                ${stock.name}
+                ${safeText(stock.name)}
               </span>
             </td>
 
@@ -103,7 +102,7 @@ async function initializeMarketRadar() {
 
             <td>
               <span class="radar-signal">
-                ${stock.signal}
+                ${safeText(stock.signal)}
               </span>
             </td>
           </tr>
@@ -184,6 +183,7 @@ return (
         );
 
         tab.classList.add("active");
+        radarTabs.forEach(item => item.setAttribute("aria-pressed", String(item===tab)));
 
         const tabName =
           tab.textContent.trim().toLowerCase();
@@ -222,7 +222,7 @@ return (
         : "Latest available";
 
       updated.textContent =
-        `Market data as of ${marketDate}`;
+        `Market snapshot: ${marketDate} (date in UTC)`;
     }
 
   } catch (error) {
@@ -255,9 +255,10 @@ const nav = document.getElementById('nav');
 if (menuBtn && nav) {
   menuBtn.addEventListener('click', () => {
     nav.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', String(nav.classList.contains('open')));
   });
 }
 
 document.querySelectorAll('nav a').forEach(link => {
-  link.addEventListener('click', () => nav.classList.remove('open'));
+  link.addEventListener('click', () => { nav.classList.remove('open'); menuBtn?.setAttribute('aria-expanded','false'); });
 });
